@@ -11,6 +11,7 @@ use Filament\Tables\Table;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\IconColumn;
 
 class PostsTable
 {
@@ -19,16 +20,23 @@ class PostsTable
         return $table
             ->columns([
                 //
-                TextColumn::make('title')->sortable(),
-                TextColumn::make('slug')->sortable(),
-                TextColumn::make('category.name')->sortable(),
+                TextColumn::make('title')
+                    ->sortable(),
+                TextColumn::make('slug')
+                    ->sortable(),
+                TextColumn::make('category.name')
+                    ->sortable(),
                 ColorColumn::make('color'),
                 ImageColumn::make('image')
                     ->disk('public'),
                 TextColumn::make('created_at')
-                ->label('Created at')
-                ->dateTime()
-                ->sortable(),
+                    ->label('Created at')
+                    ->dateTime()
+                    ->sortable(),
+                IconColumn::make('published_at')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check')
+                    ->falseIcon('heroicon-o-x-mark'),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
